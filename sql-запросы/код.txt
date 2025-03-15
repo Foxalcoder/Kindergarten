@@ -1,0 +1,212 @@
+using System;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Windows.Forms;
+
+namespace Kindergarten
+{
+    public partial class EditTeacherForm : Form
+    {
+        private readonly string connectionString;
+
+        public EditTeacherForm()
+        {
+            InitializeComponent();
+            connectionString = ConfigurationManager.ConnectionStrings["KindergartenDB"].ConnectionString;
+            LoadGroups();
+        }
+
+        private void LoadGroups()
+        {
+            try
+            {
+                string query = "SELECT id, name FROM groups";
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlDataAdapter adapter = new SqlDataAdapter(query, connection))
+                {
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+                    comboBoxGroup.DataSource = dataTable;
+                    comboBoxGroup.DisplayMember = "name";
+                    comboBoxGroup.ValueMember = "id";
+                    comboBoxGroup.SelectedIndex = -1;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при загрузке групп: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void comboBoxGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxGroup.SelectedValue != null && comboBoxGroup.SelectedValue != DBNull.Value)
+            {
+                int groupId = GetInt32(comboBoxGroup.SelectedValue);
+                LoadAvailableTeachers();
+                LoadAvailableAssistants();
+                LoadCurrentTeachers(groupId);
+            }
+        }
+
+        private void LoadCurrentTeachers(int groupId)
+        {
+            try
+            {
+                string query = @"
+                    SELECT 
+                        g.id, 
+                        g.name, 
+                        g.age_range, 
+                        g.assistant_id, 
+                        g.teacher1_id, 
+                        g.teacher2_id,
+                        a.full_name AS assistant_name,
+                        t1.full_name AS teacher1_name,
+                        t2.full_name AS teacher2_name
+                    FROM groups g
+                    LEFT JOIN employees a ON g.assistant_id = a.id
+                    LEFT JOIN employees t1 ON g.teacher1_id = t1.id
+                    LEFT JOIN employees t2 ON g.teacher2_id = t2.id";
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@groupId", groupId);
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        comboBoxTeacher1.SelectedValue = reader["teacher1_id"] is DBNull ? -1 : reader["teacher1_id"];
+                        comboBoxTeacher2.SelectedValue = reader["teacher2_id"] is DBNull ? -1 : reader["teacher2_id"];
+                        comboBoxAssistant.SelectedValue = reader["assistant_id"] is DBNull ? -1 : reader["assistant_id"];
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при загрузке текущих данных: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadAvailableTeachers()
+        {
+            try
+            {
+                string query = "SELECT id, full_name FROM employees WHERE position = 'Воспитатель'";
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlDataAdapter adapter = new SqlDataAdapter(query, connection))
+                {
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+                    comboBoxTeacher1.DataSource = null;
+                    comboBoxTeacher2.DataSource = null;
+
+                    comboBoxTeacher1.DataSource = dataTable;
+                    comboBoxTeacher1.DisplayMember = "full_name";
+                    comboBoxTeacher1.ValueMember = "id";
+
+                    comboBoxTeacher2.DataSource = dataTable.Copy();
+                    comboBoxTeacher2.DisplayMember = "full_name";
+                    comboBoxTeacher2.ValueMember = "id";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при загрузке воспитателей: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadAvailableAssistants()
+        {
+            try
+            {
+                string query = "SELECT id, full_name FROM employees WHERE position = 'Ассистент'";
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlDataAdapter adapter = new SqlDataAdapter(query, connection))
+                {
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+                    comboBoxAssistant.DataSource = null;
+                    comboBoxAssistant.DataSource = dataTable;
+                    comboBoxAssistant.DisplayMember = "full_name";
+                    comboBoxAssistant.ValueMember = "id";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при загрузке помощников: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private int GetInt32(object value)
+        {
+            if (value == null || value is DBNull) return -1;
+            if (value is int intValue) return intValue;
+            if (int.TryParse(value.ToString(), out intValue)) return intValue;
+            return -1;
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            if (comboBoxGroup.SelectedValue == null ||
+               comboBoxTeacher1.SelectedValue == null ||
+               comboBoxTeacher2.SelectedValue == null ||
+               comboBoxAssistant.SelectedValue == null)
+            {
+                MessageBox.Show("Заполните все поля.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int groupId = GetInt32(comboBoxGroup.SelectedValue);
+            int teacher1Id = GetInt32(comboBoxTeacher1.SelectedValue);
+            int teacher2Id = GetInt32(comboBoxTeacher2.SelectedValue);
+            int assistantId = GetInt32(comboBoxAssistant.SelectedValue);
+
+            if (groupId == -1 || teacher1Id == -1 || teacher2Id == -1 || assistantId == -1)
+            {
+                MessageBox.Show("Заполните все поля корректными данными.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                string query = @"
+                    UPDATE groups 
+                    SET 
+                        teacher1_id = @teacher1Id, 
+                        teacher2_id = @teacher2Id, 
+                        assistant_id = @assistantId 
+                    WHERE id = @groupId";
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@teacher1Id", teacher1Id);
+                    command.Parameters.AddWithValue("@teacher2Id", teacher2Id);
+                    command.Parameters.AddWithValue("@assistantId", assistantId);
+                    command.Parameters.AddWithValue("@groupId", groupId);
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+
+                MessageBox.Show("Данные успешно обновлены.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при сохранении данных: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void buttonExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+    }
+}

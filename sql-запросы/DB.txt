@@ -1,0 +1,28 @@
+attendance (id, child_id, date, status)
+children (id, full_name, birth_date, group_id, parent_id, birth_certificate_number, place_of_birth, date_of_admission, date_of_departure, special_needs, notes) 
+groups (id, name, age_range, assistant_id,teacher1_id,teacher2_id)
+employees (id, full_name, position, phone, email, hire_date, birth_date, home_address, passport_number, education, qualification, experience_years, certificates_tech, work_schedule, salary, start_dates, end_date, emergence_contact_name, emergency_contact_phone, photo_url, notes, status_tech)
+child_medical_records (id, child_id, health_group, allergies, chronic_diseases, vaccinations, last_medical_checkup, doctor_notes, spesial_needs)
+child_vaccinations (id, child_id, vaccine_name, vaccine_date, doctor_name, notes)
+parents (id, full_name, phone, email, address)
+schedule (id, group_id, weekday, start_time, end_time, subject, period)
+
+employee_work_hours (id (INT, PRIMARY KEY, IDENTITY)
+employee_id (INT, FOREIGN KEY references employees.id) - ID сотрудника.
+date (DATE) - Дата работы.
+start_time (TIME) - Время начала работы.
+end_time (TIME) - Время окончания работы.
+hours_worked (DECIMAL(5,2)) - Общее количество отработанных часов. (можно рассчитывать автоматически или хранить)
+notes (NVARCHAR(MAX)) - Дополнительные заметки (например, “задержался на 30 минут”).)
+
+
+employee_absences: Для хранения информации об отсутствиях (болезни, отпуска и т.п.).
+
+id (INT, PRIMARY KEY, IDENTITY)
+employee_id (INT, FOREIGN KEY references employees.id) - ID сотрудника.
+start_date (DATE) - Дата начала отсутствия.
+end_date (DATE) - Дата окончания отсутствия.
+absence_type (NVARCHAR(50)) - Тип отсутствия (например, “Болезнь”, “Отпуск”, “Больничный лист”). Можно использовать ENUM или отдельную справочную таблицу, если типов будет много.
+reason (NVARCHAR(MAX)) - Причина отсутствия.
+notes (NVARCHAR(MAX)) - Дополнительные заметки.
+documents_url (NVARCHAR(MAX)) - URL или путь к файлам, подтверждающим отсутствие (больничный лист, заявление на отпуск и т.д.).

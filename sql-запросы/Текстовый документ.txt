@@ -1,0 +1,68 @@
+Ежедневная посещаемость по группам:
+SELECT 
+    g.name AS group_name,
+    a.date,
+    SUM(CASE WHEN a.status = 'Присутствует' THEN 1 ELSE 0 END) AS present_count,
+    SUM(CASE WHEN a.status = 'Отсутствует' THEN 1 ELSE 0 END) AS absent_count,
+    SUM(CASE WHEN a.status = 'Болеет' THEN 1 ELSE 0 END) AS sick_count,
+    SUM(CASE WHEN a.status = 'Неизвестно' THEN 1 ELSE 0 END) AS unknown_count
+FROM attendance a
+JOIN children c ON a.child_id = c.id
+JOIN groups g ON c.group_id = g.id
+WHERE a.date = '2025-03-12' -- Укажите нужную дату
+GROUP BY g.name, a.date
+ORDER BY g.name;
+
+Месячная посещаемость по группам:
+SELECT 
+    g.name AS group_name,
+    EXTRACT(YEAR FROM a.date) AS year,
+    EXTRACT(MONTH FROM a.date) AS month,
+    SUM(CASE WHEN a.status = 'Присутствует' THEN 1 ELSE 0 END) AS present_count,
+    SUM(CASE WHEN a.status = 'Отсутствует' THEN 1 ELSE 0 END) AS absent_count,
+    SUM(CASE WHEN a.status = 'Болеет' THEN 1 ELSE 0 END) AS sick_count,
+    SUM(CASE WHEN a.status = 'Неизвестно' THEN 1 ELSE 0 END) AS unknown_count
+FROM attendance a
+JOIN children c ON a.child_id = c.id
+JOIN groups g ON c.group_id = g.id
+WHERE a.date BETWEEN '2025-03-01' AND '2025-03-31' -- Укажите нужный месяц
+GROUP BY g.name, year, month
+ORDER BY g.name, year, month;
+
+Годовой отчёт по посещаемости групп:
+SELECT 
+    g.name AS group_name,
+    EXTRACT(YEAR FROM a.date) AS year,
+    SUM(CASE WHEN a.status = 'Присутствует' THEN 1 ELSE 0 END) AS present_count,
+    SUM(CASE WHEN a.status = 'Отсутствует' THEN 1 ELSE 0 END) AS absent_count,
+    SUM(CASE WHEN a.status = 'Болеет' THEN 1 ELSE 0 END) AS sick_count,
+    SUM(CASE WHEN a.status = 'Неизвестно' THEN 1 ELSE 0 END) AS unknown_count
+FROM attendance a
+JOIN children c ON a.child_id = c.id
+JOIN groups g ON c.group_id = g.id
+WHERE EXTRACT(YEAR FROM a.date) = 2025 -- Укажите нужный год
+GROUP BY g.name, year
+ORDER BY g.name, year;
+
+Индивидуальная посещаемость ребёнка:
+SELECT 
+    c.full_name AS child_name,
+    g.name AS group_name,
+    a.date,
+    a.status
+FROM attendance a
+JOIN children c ON a.child_id = c.id
+JOIN groups g ON c.group_id = g.id
+WHERE c.id = 123 -- Укажите ID ребёнка
+AND a.date BETWEEN '2025-03-01' AND '2025-03-31' -- Укажите нужный диапазон
+ORDER BY a.date;
+
+Причины отсутствия детей:
+SELECT 
+    a.status,
+    COUNT(*) AS count
+FROM attendance a
+WHERE a.date BETWEEN '2025-03-01' AND '2025-03-31' -- Укажите нужный период
+AND a.status IN ('Отсутствует', 'Болеет')
+GROUP BY a.status
+ORDER BY count DESC;

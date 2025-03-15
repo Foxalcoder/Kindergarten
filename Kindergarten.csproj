@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1CE8657C-1626-48F7-9A9E-ECDB113DBF85}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Kindergarten</RootNamespace>
+    <AssemblyName>Kindergarten</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EditTeacherForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditTeacherForm.Designer.cs">
+      <DependentUpon>EditTeacherForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GroupControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GroupControl.Designer.cs">
+      <DependentUpon>GroupControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="kindergardenDataS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>kindergardenDataS.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="kindergardenDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>kindergardenDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="kindergardenDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>kindergardenDataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="kindergardenDataSetSchedule.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>kindergardenDataSetSchedule.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScheduleControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ScheduleControl.Designer.cs">
+      <DependentUpon>ScheduleControl.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="EditTeacherForm.resx">
+      <DependentUpon>EditTeacherForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GroupControl.resx">
+      <DependentUpon>GroupControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="ScheduleControl.resx">
+      <DependentUpon>ScheduleControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="kindergardenDataS.xsc">
+      <DependentUpon>kindergardenDataS.xsd</DependentUpon>
+    </None>
+    <None Include="kindergardenDataS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>kindergardenDataS.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="kindergardenDataS.xss">
+      <DependentUpon>kindergardenDataS.xsd</DependentUpon>
+    </None>
+    <None Include="kindergardenDataSet.xsc">
+      <DependentUpon>kindergardenDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="kindergardenDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>kindergardenDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="kindergardenDataSet.xss">
+      <DependentUpon>kindergardenDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="kindergardenDataSet1.xsc">
+      <DependentUpon>kindergardenDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="kindergardenDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>kindergardenDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="kindergardenDataSet1.xss">
+      <DependentUpon>kindergardenDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="kindergardenDataSetSchedule.xsc">
+      <DependentUpon>kindergardenDataSetSchedule.xsd</DependentUpon>
+    </None>
+    <None Include="kindergardenDataSetSchedule.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>kindergardenDataSetSchedule.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="kindergardenDataSetSchedule.xss">
+      <DependentUpon>kindergardenDataSetSchedule.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\free-icon-justify-8909916.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\photo_2025-02-24_21-04-21.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\kindergarden.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\icons8-расписание-100.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\icons8-дети-50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\icons8-мероприятие-100.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\icons8-праздник-80.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\icons8-сотрудники-96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\icons8-родители-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\icons8-сотрудники-100.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\free-icon-sandbox-5102299.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\free-icon-hand-print-7069373.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\free-icon-kindergarten-18253970.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\free-icon-playground-5921833.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\free-icon-children-2880484.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\free-icon-playground-2830249.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\free-icon-schedule-6829928.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\free-icon-event-4285436.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\free-icon-baby-food-1702314.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\free-icon-drawing-8363133.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\free-icon-handbook-12422925.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\schelu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\butt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="kindergarden.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="kindergarden_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>kindergarden.mdf</DependentUpon>
+    </Content>
+    <None Include="Pictures\Untitled_logo_1_free-file.jpg" />
+    <None Include="Pictures\free-sticker-abecedary-10295589.png" />
+    <None Include="Pictures\Ясли.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 и x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
