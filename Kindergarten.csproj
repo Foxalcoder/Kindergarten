@@ -62,11 +62,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EditScheduleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditScheduleForm.Designer.cs">
+      <DependentUpon>EditScheduleForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditTeacherForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EditTeacherForm.Designer.cs">
       <DependentUpon>EditTeacherForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormScheduleAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormScheduleAdd.Designer.cs">
+      <DependentUpon>FormScheduleAdd.cs</DependentUpon>
     </Compile>
     <Compile Include="GroupControl.cs">
       <SubType>UserControl</SubType>
@@ -89,6 +101,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>kindergardenDataSet1.xsd</DependentUpon>
     </Compile>
+    <Compile Include="kindergardenDataSet2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>kindergardenDataSet2.xsd</DependentUpon>
+    </Compile>
     <Compile Include="kindergardenDataSetSchedule.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -108,8 +125,14 @@
     <Compile Include="ScheduleControl.Designer.cs">
       <DependentUpon>ScheduleControl.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="EditScheduleForm.resx">
+      <DependentUpon>EditScheduleForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditTeacherForm.resx">
       <DependentUpon>EditTeacherForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormScheduleAdd.resx">
+      <DependentUpon>FormScheduleAdd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GroupControl.resx">
       <DependentUpon>GroupControl.cs</DependentUpon>
@@ -162,6 +185,17 @@
     </None>
     <None Include="kindergardenDataSet1.xss">
       <DependentUpon>kindergardenDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="kindergardenDataSet2.xsc">
+      <DependentUpon>kindergardenDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="kindergardenDataSet2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>kindergardenDataSet2.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="kindergardenDataSet2.xss">
+      <DependentUpon>kindergardenDataSet2.xsd</DependentUpon>
     </None>
     <None Include="kindergardenDataSetSchedule.xsc">
       <DependentUpon>kindergardenDataSetSchedule.xsd</DependentUpon>
@@ -264,6 +298,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>kindergarden.mdf</DependentUpon>
     </Content>
+    <None Include="Pictures\free-icon-switch-arrows-9497023.png" />
+    <None Include="Pictures\Обновить.png" />
     <None Include="Pictures\Untitled_logo_1_free-file.jpg" />
     <None Include="Pictures\free-sticker-abecedary-10295589.png" />
     <None Include="Pictures\Ясли.png" />

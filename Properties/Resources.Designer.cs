@@ -233,6 +233,16 @@ namespace Kindergarten.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap free_icon_switch_arrows_9497023 {
+            get {
+                object obj = ResourceManager.GetObject("free-icon-switch-arrows-9497023", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap free_sticker_abecedary_10295589 {
             get {
                 object obj = ResourceManager.GetObject("free-sticker-abecedary-10295589", resourceCulture);
@@ -376,6 +386,16 @@ namespace Kindergarten.Properties {
         internal static System.Drawing.Bitmap Untitled_logo_1_free_file {
             get {
                 object obj = ResourceManager.GetObject("Untitled_logo_1_free-file", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Обновить {
+            get {
+                object obj = ResourceManager.GetObject("Обновить", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
